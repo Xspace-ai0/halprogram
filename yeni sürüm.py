@@ -102,7 +102,7 @@ class ReceiptApp:
         self.suggestion_box.bind("<Return>", self._apply_suggestion)
         self.suggestion_box.grid_remove()
         # Quick presets inside same area below
-        preset_label = ttk.Label(customer_frame, text="Hızlı Seçim:")
+        preset_label = ttk.Label(customer_frame, text="Müşteri Listesi:")
         preset_label.grid(row=2, column=0, sticky="nw", padx=2, pady=(6,2))
         preset_container = ttk.Frame(customer_frame)
         preset_container.grid(row=2, column=1, sticky="ew", padx=2, pady=(6,2))
