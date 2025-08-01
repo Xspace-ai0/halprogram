@@ -42,7 +42,7 @@ class ReceiptApp:
         # Kullanıcı bazı meyveleri yazmak yerine tek tıkla seçebilmesi için bir çerçeve oluştur.
         fruits_frame = ttk.Frame(master)
         # Hızlı seçim için eklenecek meyveler listesi
-        fruits = ["ŞEFTALİ", "NEKTARİ", "PORTAKAL", "MANDALİNA"]
+        fruits = ["ŞEFTALİ", "NEKTARİ", "PORTAKAL", "MANDALİNA", "DOMATES"]
         for idx, fruit in enumerate(fruits):
             # Her meyve için bir düğme oluştur; tıklanınca malın cinsi otomatik doldurulur
             ttk.Button(fruits_frame, text=fruit,
