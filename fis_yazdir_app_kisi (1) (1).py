@@ -43,10 +43,30 @@ class ReceiptApp:
         fruits_frame = ttk.Frame(master)
         # Hızlı seçim için eklenecek meyveler listesi
         fruits = ["ŞEFTALİ", "NEKTARİ", "PORTAKAL", "MANDALİNA"]
+
+        # Mandalina butonu için ikon yükle
+        icon_path = os.path.join(os.path.dirname(__file__), "mandalina_icon.ppm")
+        if os.path.exists(icon_path):
+            self.mandalina_icon = tk.PhotoImage(file=icon_path)
+        else:
+            self.mandalina_icon = None
+
         for idx, fruit in enumerate(fruits):
             # Her meyve için bir düğme oluştur; tıklanınca malın cinsi otomatik doldurulur
-            ttk.Button(fruits_frame, text=fruit,
-                       command=lambda f=fruit: self.item_type_var.set(f)).grid(row=0, column=idx, padx=2, pady=2)
+            if fruit == "MANDALİNA" and self.mandalina_icon is not None:
+                ttk.Button(
+                    fruits_frame,
+                    text=fruit,
+                    image=self.mandalina_icon,
+                    compound="left",
+                    command=lambda f=fruit: self.item_type_var.set(f),
+                ).grid(row=0, column=idx, padx=2, pady=2)
+            else:
+                ttk.Button(
+                    fruits_frame,
+                    text=fruit,
+                    command=lambda f=fruit: self.item_type_var.set(f),
+                ).grid(row=0, column=idx, padx=2, pady=2)
         # Çerçeveyi 'Malın Cinsi' satırının hemen altına yerleştir
         fruits_frame.grid(row=2, column=0, columnspan=3, padx=5, pady=5, sticky="w")
 
