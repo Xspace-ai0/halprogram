@@ -1,27 +1,67 @@
 import os
-import json
+
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 import datetime
 import platform
 import subprocess
 
-CUSTOMER_PRESET_FILE = "customer_presets.json"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+CUSTOMER_PRESET_DIR = os.path.join(SCRIPT_DIR, "Musteri_Listesi")
+ÖN_TANIMLI_MÜŞTERİLER = [
+    "AliYılmaz", 
+    "AyşeDemir", 
+    "MehmetKaya", 
+    "MensurKoçyiğit", 
+    "Mendoza Gürkan", 
+    "ŞükrüKaya", 
+]
 PRESET_COLUMNS = 4
-
+def sanitize_filename(name: str) -> str: 
+    """ Dosya adlarında geçersiz olan karakterleri alt çizgilerle değiştirin.""" 
+    geçersiz = '<>:"/\\|?*'
+    sanitized = ''.join('_' eğer c geçersizse, c adındaysa)
+    sanitized.strip()' i döndür
 def load_customer_presets():
     try:
-        if os.path.exists(CUSTOMER_PRESET_FILE):
-            with open(CUSTOMER_PRESET_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-    except Exception:
-        pass
-    return ["Ali Yılmaz", "Ayşe Demir", "Mehmet Kaya", "Mensur Koçyiğit", "Mendoza Gürkan", "Şükrü Kaya"]
+        os.path.isdir(CUSTOMER_PRESET_DIR) değilse : 
+            os.makedirs(MÜŞTERİ_ÖN_AYAR_DİZİNİ, exist_ok=True) 
 
+        dosya adları = [n for n in os.listdir(CUSTOMER_PRESET_DIR)
+                     eğer os.path.isfile(os.path.join(MÜŞTERİ_ÖN AYAR_DİZİNİ, n))] 
+        isimler = []
+        dosya adlarındaki fname için : 
+            yol = os.path.join(MÜŞTERİ_ÖN_AYAR_DİZİNİ, fname)
+            denemek :
+                open(path, "r", kodlama="utf-8") ile f olarak: 
+                    içerik = f.read().strip()
+                names.append(içerik veya fname) 
+            İstisna hariç : 
+            isimler.append(fname)
+
+        eğer isimler değilse: 
+            DEFAULT_CUSTOMERS'daki isim için : 
+                sterilize edilmiş = sanitize_filename(name)
+                yol = os.path.join(MÜŞTERİ_ÖN AYAR_DİZİNİ, temizlendi)
+                open(path, "w", kodlama="utf-8") ile f olarak: 
+                    f.write(isim)
+            isimler = DEFAULT_CUSTOMERS
+        isimleri geri döndür 
+    except Exception:
+       DEFAULT_CUSTOMERS'ı döndür 
 def save_customer_presets(presets):
     try:
-        with open(CUSTOMER_PRESET_FILE, "w", encoding="utf-8") as f:
-            json.dump(presets, f, ensure_ascii=False, indent=2)
+         os.makedirs(MÜŞTERİ_ÖN_AYAR_DİZİNİ, exist_ok=True) 
+        os.listdir(CUSTOMER_PRESET_DIR) dosyasındaki dosya adı için : 
+            yol = os.path.join(MÜŞTERİ_ÖN_AYAR_DİZİNİ, dosya adı)
+            eğer os.path.isfile(yol): 
+                os.remove(yol)
+
+        ön ayarlardaki isim için : 
+            sterilize edilmiş = sanitize_filename(name)
+            yol = os.path.join(MÜŞTERİ_ÖN AYAR_DİZİNİ, temizlendi)
+            open(path, "w", kodlama="utf-8") ile f olarak: 
+                f.write(isim)
     except Exception as e:
         print("Kaydetme hatası:", e)
 
